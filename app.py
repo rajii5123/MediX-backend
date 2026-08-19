@@ -1,32 +1,33 @@
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
 from flask_cors import CORS
-import random
 
 app = Flask(__name__)
 CORS(app)
 
-# -------- HUMAN --------
-@app.route('/predict/human', methods=['POST'])
-def human():
+
+# -------- HOME / TEST --------
+
+@app.route("/", methods=["GET"])
+def home():
     return jsonify({
-        "result": "Possible Skin Disease",
-        "advice": "Consult dermatologist"
+        "status": "success",
+        "message": "MEDIX Plant Backend is Running 🌱"
     })
 
-# -------- PLANT --------
-@app.route('/predict/plant', methods=['POST'])
-def plant():
+
+# -------- PLANT PREDICTION --------
+
+@app.route("/predict/plant", methods=["POST"])
+def plant_prediction():
     return jsonify({
-        "result": "Leaf Disease Detected",
-        "treatment": "Use fungicide spray"
+        "status": "success",
+        "plant": "Tomato",
+        "disease": "Early Blight",
+        "confidence": 0.94
     })
 
-# -------- REPORT --------
-@app.route('/analyze/report', methods=['POST'])
-def report():
-    return jsonify({
-        "analysis": "Report analyzed. Values look normal."
-    })
+
+# -------- RUN SERVER --------
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
